@@ -406,6 +406,8 @@ export default class FilterSystem extends System
             });
         }
 
+        renderTexture.filterPoolKey = key;
+
         return renderTexture;
     }
 
@@ -433,15 +435,9 @@ export default class FilterSystem extends System
      */
     returnFilterTexture(renderTexture)
     {
+        const key = renderTexture.filterPoolKey;
+
         renderTexture.filterFrame = null;
-
-        const base = renderTexture.baseTexture;
-
-        const minWidth = base.width;
-        const minHeight = base.height;
-
-        const key = ((minWidth & 0xFFFF) << 16) | (minHeight & 0xFFFF);
-
         this.texturePool[key].push(renderTexture);
     }
 
