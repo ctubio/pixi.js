@@ -400,8 +400,8 @@ export default class FilterSystem extends System
             // temporary bypass cache..
             // internally - this will cause a texture to be bound..
             renderTexture = RenderTexture.create({
-                width: minWidth,
-                height: minHeight,
+                width: minWidth / resolution,
+                height: minHeight / resolution,
                 resolution,
             });
         }
