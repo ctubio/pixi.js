@@ -239,7 +239,7 @@ export default class Rectangle
      * Enlarges rectangle that way its corners lie on grid
      *
      * @param {number} [resolution=1] resolution
-     * @param {number [eps=0.001] precision
+     * @param {number} [eps=0.001] precision
      */
     ceil(resolution = 1, eps = 0.001)
     {
