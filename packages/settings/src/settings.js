@@ -47,6 +47,16 @@ export default {
     FILTER_RESOLUTION: 1,
 
     /**
+     * If `true`, for all new renderers, for all filters fullScreen mode will be on.
+     * Copied into renderer' {@link PIXI.systems.FilterSystem} in constructor.
+     * @static
+     * @memberof PIXI.settings
+     * @type {boolean}
+     * @default true
+     */
+    FILTER_FULL_SCREEN: true,
+
+    /**
      * The maximum textures that this device supports.
      *
      * @static
