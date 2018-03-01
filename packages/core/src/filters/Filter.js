@@ -191,12 +191,6 @@ export default class Filter extends Shader
         this.legacy = !!this.program.attributeData.aTextureCoord;
 
         /**
-         * Filter input and output will always have the same size.
-         * @member {boolean}
-         */
-        this.fullScreen = false;
-
-        /**
          * the webGL state the filter requires to render
          * @member {PIXI.State}
          */

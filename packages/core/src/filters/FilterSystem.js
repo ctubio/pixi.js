@@ -8,7 +8,6 @@ import * as filterTransforms from './filterTransforms';
 import bitTwiddle from 'bit-twiddle';
 import UniformGroup from '../shader/UniformGroup';
 import { DRAW_MODES } from '@pixi/constants';
-import { settings } from '@pixi/settings';
 
 //
 /**
@@ -92,12 +91,6 @@ export default class FilterSystem extends System
             filterClamp: new Float32Array(4),
         }, true);
 
-        /**
-         * For this renderer, for every filter input and output will always have the same size.
-         * @member {boolean}
-         */
-        this.fullScreen = settings.FILTER_FULL_SCREEN;
-
         this._pixelsWidth = renderer.view.width;
 
         this._pixelsHeight = renderer.view.height;
@@ -119,7 +112,6 @@ export default class FilterSystem extends System
         let padding = filters[0].padding;
         let autoFit = filters[0].autoFit;
         let legacy = filters[0].legacy;
-        let fullScreen = filters[0].fullScreen;
 
         for (let i = 1; i < filters.length; i++)
         {
@@ -133,8 +125,6 @@ export default class FilterSystem extends System
             autoFit = autoFit || filter.autoFit;
 
             legacy = legacy || filter.legacy;
-
-            fullScreen = fullScreen || filter.fullScreen;
         }
 
         filterStack.push(state);
@@ -143,15 +133,12 @@ export default class FilterSystem extends System
 
         state.legacy = legacy;
 
-        state.sourceFrame = fullScreen ? renderer.screen : (target.filterArea || target.getBounds(true));
+        state.sourceFrame = target.filterArea || target.getBounds(true);
 
-        if (!fullScreen)
+        state.sourceFrame.pad(padding);
+        if (autoFit)
         {
-            state.sourceFrame.pad(padding);
-            if (autoFit)
-            {
-                state.sourceFrame.fit(this.renderer.renderTexture.destinationFrame);
-            }
+            state.sourceFrame.fit(this.renderer.renderTexture.destinationFrame);
         }
 
         // round to whole number based on resolution
